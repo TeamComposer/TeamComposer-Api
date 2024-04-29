@@ -1,6 +1,7 @@
 // index.js
 const express = require('express');
 const mongoose = require('mongoose');
+const userRoutes = require('./src/routes/userRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +16,8 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
   });
 
 app.use(express.json());
+
+app.use('/users', userRoutes);
 
 app.get('/', (req, res) => {
   res.send('API TeamComposer!');
