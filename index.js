@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./src/routes/userRoutes');
+const teamRoutes = require('./src/routes/teamRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,11 +19,12 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
 app.use(express.json());
 
 app.use('/users', userRoutes);
+app.use('/teams', teamRoutes);
 
 app.get('/', (req, res) => {
   res.send('API TeamComposer!');
-});
-
+}); 
+  
 app.listen(PORT, () => {
   console.log(`Servidor na porta ${PORT}`);
 });
