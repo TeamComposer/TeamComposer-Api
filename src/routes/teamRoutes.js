@@ -1,15 +1,15 @@
 // src/routes/userRoutes.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const teamController = require('../controllers/teamController');
+const teamController = require("../controllers/teamController");
 
-router.get('/', teamController.getAllTeams);
-router.get('/:id', teamController.getTeamById);
+router.get("/", teamController.getAllTeams);
+router.get("/:id", teamController.getTeamById);
 
-router.delete('/:id', teamController.deleteTeamById);
+router.delete("/:id", teamController.deleteTeamById);
 
-router.post('/', teamController.createTeam);
+router.post("/", teamController.createTeam);
 
-router.put('/:id', teamController.updateTeamById)
+router.put("/:id", teamController.updateTeamById);
 
 module.exports = router;

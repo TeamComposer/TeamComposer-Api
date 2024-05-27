@@ -1,22 +1,19 @@
 // src/controllers/userController.js
-const Team = require('../models/Team');
+const Team = require("../models/Team");
 
 // Criação de variáveis para as mensagens a fim de padronizar e deixar mais "limpo" o código,
 // sem a necessidade de adicionar uma string talvez muito grande diretamente no código.
-const TIME_NAO_ENCONTRADO = 'Time não encontrado';
-const TIME_EXCLUIDO_COM_SUCESSO = 'Time excluído com sucesso!';
+const TIME_NAO_ENCONTRADO = "Time não encontrado";
+const TIME_EXCLUIDO_COM_SUCESSO = "Time excluído com sucesso!";
 
 // Obtém todos os times
 async function getAllTeams(req, res) {
-  
   try {
-    
     const teams = await Team.find();
-    
+
     res.json(teams);
-  
   } catch (error) {
-    
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 }
@@ -26,30 +23,25 @@ async function getTeamById(req, res) {
   const teamId = req.params.id;
 
   try {
-
     const team = await Team.findById(teamId);
-    
+
     res.status(200).json(team ? team : { message: TIME_NAO_ENCONTRADO });
-
   } catch (error) {
-
-    res.status(500).json({error: error.message});
+    console.log(error);
+    res.status(500).json({ error: error.message });
   }
 }
 
 // Cria um novo time
 async function createTeam(req, res) {
-  
   const team = montaJsonTeam(req, res);
 
   try {
-    
     const newTeam = await team.save();
-    
+
     res.status(201).json(newTeam);
-  
   } catch (error) {
-    
+    console.log(error);
     res.status(400).json({ message: error.message });
   }
 }
@@ -59,36 +51,33 @@ async function deleteTeamById(req, res) {
   const teamId = req.params.id;
 
   try {
-    
     const team = await Team.findById(teamId);
 
     if (!team) {
-      
+      console.log(error);
       return res.status(404).json({ message: TIME_NAO_ENCONTRADO });
     }
-    
+
     await Team.deleteOne({ _id: teamId });
 
     res.json({ message: TIME_EXCLUIDO_COM_SUCESSO });
-
   } catch (error) {
-    
-    res.status(500).json({error: error.message});
+    console.log(error);
+    res.status(500).json({ error: error.message });
   }
 }
 
+// Atualiza um time por id
 async function updateTeamById(req, res) {
   const teamId = req.params.id;
 
   try {
-    
     let team = await Team.findById(teamId);
 
     if (!team) {
-      
       return res.status(404).json({ message: TIME_NAO_ENCONTRADO });
     }
-    
+
     // Atualiza os dados do time com os dados do corpo da requisição
     // Aqui você pode especificar quais campos do time podem ser atualizados
     team.nome = req.body.nome;
@@ -102,26 +91,33 @@ async function updateTeamById(req, res) {
     team = await team.save();
 
     res.json(team);
-
   } catch (error) {
-    
-    res.status(500).json({error: error.message});
+    console.log(error);
+    res.status(500).json({ error: error.message });
   }
 }
 
+// Monta uma instância de Time com as propriedades vindas do body do json da request
 function montaJsonTeam(req, res) {
-
-  const { 
-    nome, 
-    email, 
-    membros, 
-    comunicacao, 
-    projeto, 
-    descricaoProjeto, 
-    status 
+  const {
+    nome,
+    email,
+    membros,
+    comunicacao,
+    projeto,
+    descricaoProjeto,
+    status,
   } = req.body;
-  
-  return new Team({ nome, email, membros, comunicacao, projeto, descricaoProjeto, status });
+
+  return new Team({
+    nome,
+    email,
+    membros,
+    comunicacao,
+    projeto,
+    descricaoProjeto,
+    status,
+  });
 }
 
 module.exports = {
@@ -129,5 +125,5 @@ module.exports = {
   createTeam,
   deleteTeamById,
   getTeamById,
-  updateTeamById
+  updateTeamById,
 };

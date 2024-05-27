@@ -1,42 +1,44 @@
 // src/models/User.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const teamSchema = new mongoose.Schema({
   nome: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   membros: {
-    type: [{
-      aluno: { type: mongoose.Schema.Types.ObjectId, ref: 'Aluno' },
-      funcao: {
-        type: String,
-        enum: [
-          'Desenvolvedor Backend', 
-          'Desenvolvedor Frontend',
-          'Desenvolvedor FullStack',
-          'Database Operator', 
-          'Gerente', 
-          'Designer UX/UI',
-          'QA Tester'
-        ],
-      }
-    }],
-    default: []
+    type: [
+      {
+        aluno: { type: mongoose.Schema.Types.ObjectId, ref: "Aluno" },
+        funcao: {
+          type: String,
+          enum: [
+            "Desenvolvedor Backend",
+            "Desenvolvedor Frontend",
+            "Desenvolvedor FullStack",
+            "Database Operator",
+            "Gerente",
+            "Designer UX/UI",
+            "QA Tester",
+          ],
+        },
+      },
+    ],
+    default: [],
   },
   comunicacao: {
     type: String,
-    default: null
+    default: null,
   },
   projeto: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   descricaoProjeto: {
     type: String,
@@ -44,15 +46,15 @@ const teamSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Ativo', 'Inativo'],
-    default: 'Ativo'
+    enum: ["Ativo", "Inativo"],
+    default: "Ativo",
   },
   criadoEm: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-const Team = mongoose.model('Team', teamSchema);
+const Team = mongoose.model("Team", teamSchema);
 
 module.exports = Team;
