@@ -91,9 +91,9 @@ async function updateAlunoById(req, res) {
 
 // Monta uma instância de Aluno com as propriedades vindas do body do json da request
 function montaJsonAluno(req, res) {
-  const { nome, periodo } = req.body;
+  const { nome, periodo, funcao } = req.body;
 
-  return new Aluno({ nome, periodo });
+  return new Aluno({ nome, periodo, funcao });
 }
 
 module.exports = {

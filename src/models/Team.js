@@ -11,26 +11,9 @@ const teamSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  membros: {
-    type: [
-      {
-        aluno: { type: mongoose.Schema.Types.ObjectId, ref: "Aluno" },
-        funcao: {
-          type: String,
-          enum: [
-            "Desenvolvedor Backend",
-            "Desenvolvedor Frontend",
-            "Desenvolvedor FullStack",
-            "Database Operator",
-            "Gerente",
-            "Designer UX/UI",
-            "QA Tester",
-          ],
-        },
-      },
-    ],
-    default: [],
-  },
+  membros: [{
+    aluno: { type: mongoose.Schema.Types.ObjectId, ref: "Aluno" }
+  }],
   comunicacao: {
     type: String,
     default: null,
