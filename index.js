@@ -5,6 +5,7 @@ const userRoutes = require("./src/routes/userRoutes");
 const teamRoutes = require("./src/routes/teamRoutes");
 const alunoRoutes = require("./src/routes/alunoRoutes");
 const projetoRoutes = require("./src/routes/projetoRoutes");
+const cadastroRoutes = require("./src/routes/cadastroRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,6 +26,7 @@ app.use("/users", userRoutes);
 app.use("/teams", teamRoutes);
 app.use("/alunos", alunoRoutes);
 app.use("/projetos", projetoRoutes);
+app.use("/cadastro", cadastroRoutes);
 
 app.get("/", (req, res) => {
   res.send("API TeamComposer!");

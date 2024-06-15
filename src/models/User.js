@@ -2,7 +2,11 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  nome: {
+  primeiroNome: {
+    type: String,
+    required: true,
+  },
+  sobrenome: {
     type: String,
     required: true,
   },
@@ -15,6 +19,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ["Professor", "Aluno"],
     default: "Aluno",
+  },
+  senha: {
+    type: String,
+    required: true,
   },
   periodo: {
     type: Number,

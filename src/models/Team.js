@@ -19,13 +19,7 @@ const teamSchema = new mongoose.Schema({
     default: null,
   },
   projeto: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  descricaoProjeto: {
-    type: String,
-    default: null,
+    type: mongoose.Schema.Types.ObjectId, ref: "Projeto",
   },
   status: {
     type: String,

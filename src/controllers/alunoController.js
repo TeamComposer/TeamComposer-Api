@@ -29,19 +29,7 @@ async function getAlunoById(req, res) {
   }
 }
 
-// Cria um novo aluno
-async function createAluno(req, res) {
-  const aluno = montaJsonAluno(req, res);
 
-  try {
-    const newAluno = await aluno.save();
-
-    res.status(201).json(newAluno);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: error.message });
-  }
-}
 
 // Deleta um determinado aluno a partir do id
 async function deleteAlunoById(req, res) {
@@ -77,8 +65,8 @@ async function updateAlunoById(req, res) {
 
     // Atualiza os dados de aluno com os dados do corpo da requisição
     // Aqui você pode especificar quais campos do aluno podem ser atualizados
-    aluno.nome = req.body.nome;
-    aluno.periodo = req.body.periodo;
+    aluno.funcao = req.body.funcao;
+    aluno.nivel = req.body.nivel;
 
     aluno = await aluno.save();
 
@@ -91,15 +79,14 @@ async function updateAlunoById(req, res) {
 
 // Monta uma instância de Aluno com as propriedades vindas do body do json da request
 function montaJsonAluno(req, res) {
-  const { nome, periodo, funcao } = req.body;
+  const { userId, funcao, nivel} = req.body;
 
-  return new Aluno({ nome, periodo, funcao });
+  return new Aluno({  userId, funcao, nivel });
 }
 
 module.exports = {
   getAllAlunos,
   getAlunoById,
-  createAluno,
   deleteAlunoById,
   updateAlunoById,
   montaJsonAluno

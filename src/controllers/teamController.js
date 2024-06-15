@@ -84,7 +84,6 @@ async function updateTeamById(req, res) {
     team.email = req.body.email;
     team.membros = req.body.membros;
     team.comunicacao = req.body.comunicacao;
-    team.projeto = req.body.projeto;
     team.descricaoProjeto = req.body.descricaoProjeto;
     team.status = req.body.status;
 
@@ -104,8 +103,6 @@ function montaJsonTeam(req, res) {
     email,
     membros,
     comunicacao,
-    projeto,
-    descricaoProjeto,
     status,
   } = req.body;
 
@@ -114,8 +111,6 @@ function montaJsonTeam(req, res) {
     email,
     membros,
     comunicacao,
-    projeto,
-    descricaoProjeto,
     status,
   });
 }

@@ -1,36 +1,33 @@
 const mongoose = require("mongoose");
 
 const alunoSchema = new mongoose.Schema({
-  nome: {
-    type: String,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId, ref: "User",
     required: true,
-  },
-  periodo: {
-    type: Number,
-    default: null,
   },
   criadoEm: {
     type: Date,
     default: Date.now,
   },
-  funcao: [{
+  funcao: {
     type: String,
     enum: [
-      "Desenvolvedor Backend",
-      "Desenvolvedor Frontend",
-      "Desenvolvedor FullStack",
-      "Project Manager",
-      "Designer UX/UI",
-      "QA Tester",
+      "Backend",
+      "Frontend",
+      "FullStack",
+      "PM",
+      "UX/UI",
+      "QA",
     ],
-    nivel: {
-      type: String,
-      enum: ["Nenhum", "Junior", "Pleno", "Senior"],
-    },
-  }],
-  emTime: {
-    type: Boolean,
-    default: false,
+    required: true,
+  },
+  nivel: {
+    type: number,
+    required: true,
+  },
+  time: {
+    type: mongoose.Schema.Types.ObjectId, ref: "Team",
+    default: null,
   },
 });
 
