@@ -81,10 +81,9 @@ async function updateTeamById(req, res) {
     // Atualiza os dados do time com os dados do corpo da requisição
     // Aqui você pode especificar quais campos do time podem ser atualizados
     team.nome = req.body.nome;
-    team.email = req.body.email;
     team.membros = req.body.membros;
     team.comunicacao = req.body.comunicacao;
-    team.descricaoProjeto = req.body.descricaoProjeto;
+    team.projeto = req.body.projeto;
     team.status = req.body.status;
 
     team = await team.save();
@@ -100,18 +99,12 @@ async function updateTeamById(req, res) {
 function montaJsonTeam(req, res) {
   const {
     nome,
-    email,
-    membros,
-    comunicacao,
-    status,
+    membros
   } = req.body;
 
   return new Team({
     nome,
-    email,
-    membros,
-    comunicacao,
-    status,
+    membros
   });
 }
 

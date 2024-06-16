@@ -81,11 +81,6 @@ async function updateProjetoById(req, res) {
     // Aqui você pode especificar quais campos do projeto podem ser atualizados
     projeto.nome = req.body.nome;
     projeto.descricao = req.body.descricao;
-    projeto.dataInicio = req.body.dataInicio;
-    projeto.dataFim = req.body.dataFim;
-    projeto.status = req.body.status;
-    projeto.membros = req.body.membros;
-    projeto.tarefas = req.body.tarefas;
 
     projeto = await projeto.save();
 
@@ -98,17 +93,12 @@ async function updateProjetoById(req, res) {
 
 // Monta uma instância de Projeto com as propriedades vindas do body do json da request
 function montaJsonProjeto(req, res) {
-  const { nome, descricao, dataInicio, dataFim, status, membros, tarefas } =
+  const { nome, descricao } =
     req.body;
 
   return new Aluno({
     nome,
     descricao,
-    dataInicio,
-    dataFim,
-    status,
-    membros,
-    tarefas,
   });
 }
 

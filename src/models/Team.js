@@ -6,11 +6,6 @@ const teamSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   membros: [{
     aluno: { type: mongoose.Schema.Types.ObjectId, ref: "Aluno" }
   }],
@@ -20,6 +15,7 @@ const teamSchema = new mongoose.Schema({
   },
   projeto: {
     type: mongoose.Schema.Types.ObjectId, ref: "Projeto",
+    default: null,
   },
   status: {
     type: String,
