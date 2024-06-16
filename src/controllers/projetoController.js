@@ -96,7 +96,7 @@ function montaJsonProjeto(req, res) {
   const { nome, descricao } =
     req.body;
 
-  return new Aluno({
+  return new Projeto({
     nome,
     descricao,
   });
