@@ -67,6 +67,7 @@ async function updateAlunoById(req, res) {
     // Aqui você pode especificar quais campos do aluno podem ser atualizados
     aluno.funcao = req.body.funcao;
     aluno.nivel = req.body.nivel;
+    aluno.time = req.body.time;
 
     aluno = await aluno.save();
 
