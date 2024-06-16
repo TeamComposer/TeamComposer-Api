@@ -29,6 +29,18 @@ async function getAlunoById(req, res) {
   }
 }
 
+// Retorna um aluno por userId
+async function getAlunoByUserId(req, res) {
+  const userId = req.params.id;
+
+  try {
+    const aluno = await Aluno.findOne({ userId });
+    res.status(200).json(aluno ? aluno : { message: ALUNO_NAO_ENCONTRADO });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+}
 
 
 // Deleta um determinado aluno a partir do id
@@ -90,5 +102,6 @@ module.exports = {
   getAlunoById,
   deleteAlunoById,
   updateAlunoById,
-  montaJsonAluno
+  montaJsonAluno,
+  getAlunoByUserId
 };
