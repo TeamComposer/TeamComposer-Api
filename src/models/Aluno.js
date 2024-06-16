@@ -22,7 +22,7 @@ const alunoSchema = new mongoose.Schema({
     required: true,
   },
   nivel: {
-    type: number,
+    type: Number,
     required: true,
   },
   time: {

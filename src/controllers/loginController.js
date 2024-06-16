@@ -1,5 +1,5 @@
-const User = require('../models/userModel');
-const Aluno = require('../models/alunoModel');
+const User = require('../models/User');
+const Aluno = require('../models/Aluno');
 
 module.exports = {
     //Retorna dados de um usuário e um aluno, caso o usuário seja um aluno
@@ -13,9 +13,6 @@ module.exports = {
                 if (dbUser.senha === senha) {
                     if (dbUser.papel === 'Aluno') {
                         const dbAluno = await Aluno.findOne({ userId: dbUser._id });
-                        if (!dbAluno) {
-                            return res.status(404).send('Dados do aluno não encontrados');
-                        }
                         return res.status(200).json({ user: dbUser, aluno: dbAluno });
                     } else {
                         return res.status(200).json(dbUser);

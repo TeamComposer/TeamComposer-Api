@@ -10,7 +10,7 @@ const loginRoutes = require("./src/routes/loginRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = "mongodb+srv://teamcomposer:teamcomposer@cluster0.c6w7arw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const MONGODB_URI = "mongodb+srv://teamcomposerfs:admin@cluster0.9lskn3q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 mongoose
   .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -18,7 +18,7 @@ mongoose
     console.log("Conectado ao banco de dados MongoDB");
   })
   .catch((error) => {
-    console.error("Erro ao conectar ao banco de dados:", error);
+    console.error("Erro ao conectar ao banco de dados:", error); 
   });
 
 app.use(express.json());
