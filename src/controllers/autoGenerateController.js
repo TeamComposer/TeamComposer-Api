@@ -6,7 +6,7 @@ const { faker } = require('@faker-js/faker');
 
 module.exports = {
     async autoGenerateUserAluno(req, res) {
-        const n = 40;
+        const n = 100;
         const results = []; // Array para armazenar os resultados
         try {
             for (let i = 0; i < n; i++) {

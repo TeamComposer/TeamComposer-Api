@@ -2,7 +2,7 @@ const Aluno = require('../models/Aluno');
 const Team = require('../models/Team');
 const _ = require('lodash');
 
-const numeroEquipes = 3;
+const numeroEquipes = 6;
 
 async function gerarTime(tamanho) {
     try {
@@ -233,12 +233,11 @@ async function executarAlgoritmo(tamanho) {
 
 async function gerarTimeReserva(){
     const remainingAlunos = await Aluno.find({ time: null });
+    console.log(`alunos restantes: ${JSON.stringify(remainingAlunos)}`);
     if (remainingAlunos.length > 0) {
         const reserveTeam = new Team({
             nome: 'Time Reserva',
-            membros: remainingAlunos.map(aluno => ({
-                id: aluno._id
-            }))
+            membros: remainingAlunos.map(m => ({ aluno: m._id }))
         });
 
         await reserveTeam.save();
