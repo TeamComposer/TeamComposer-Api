@@ -8,6 +8,7 @@ const projetoRoutes = require("./src/routes/projetoRoutes");
 const cadastroRoutes = require("./src/routes/cadastroRoutes");
 const loginRoutes = require("./src/routes/loginRoutes");
 const autoGenerateRoutes = require("./src/routes/autoGenerateRoutes");
+const teamCompositionRoutes = require("./src/routes/teamCompositionRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,6 +32,7 @@ app.use("/projetos", projetoRoutes);
 app.use("/cadastro", cadastroRoutes);
 app.use("/login", loginRoutes);
 app.use("/autoGenerate", autoGenerateRoutes);
+app.use("/teamComposition", teamCompositionRoutes);
 
 app.get("/", (req, res) => {
   res.send("API TeamComposer!");
