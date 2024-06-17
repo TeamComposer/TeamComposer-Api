@@ -1,7 +1,6 @@
 // src/controllers/userController.js
 const Team = require("../models/Team");
-const Aluno = require("../models/Aluno");
-const User = require("../models/User");
+const Projeto = require("../models/Projeto");
 
 // Criação de variáveis para as mensagens a fim de padronizar e deixar mais "limpo" o código,
 // sem a necessidade de adicionar uma string talvez muito grande diretamente no código.
@@ -33,8 +32,7 @@ async function getTeamById(req, res) {
         model: 'User',
         select: 'primeiroNome sobrenome email'
       }
-    })
-    .exec();
+    }).populate('projeto').exec();
 
     res.status(200).json(team ? team : { message: TIME_NAO_ENCONTRADO });
   } catch (error) {
@@ -106,6 +104,7 @@ async function updateTeamById(req, res) {
   }
 }
 
+
 // Monta uma instância de Time com as propriedades vindas do body do json da request
 function montaJsonTeam(req, res) {
   const {
@@ -124,5 +123,5 @@ module.exports = {
   createTeam,
   deleteTeamById,
   getTeamById,
-  updateTeamById,
+  updateTeamById,  
 };

@@ -1,5 +1,6 @@
 const Aluno = require('../models/Aluno');
 const Team = require('../models/Team');
+const Projeto = require('../models/Projeto');
 const _ = require('lodash');
 
 const numeroEquipes = 6;
@@ -296,5 +297,24 @@ module.exports = {
             console.error('Erro ao compor equipes:', error);
             res.status(500).send('Internal Server Error: ' + error.message);
         }
-    }
+    },
+    async assignRandomProjecttoTeam(req, res) {
+        try{
+          const teams = await Team.find({projeto: null});
+          const projects = await Projeto.find();
+          
+          for (let i = 0; i < teams.length; i++) {
+            const randomProject = projects[Math.floor(Math.random() * projects.length)];
+            teams[i].projeto = randomProject._id;
+            await teams[i].save();
+          }
+      
+          res.status(200).send("Projetos atribuídos com sucesso!");
+        }
+        catch (error) {
+          console.log(error);
+          res.status(500).json({ error: error.message });
+        }
+      }
+      
 };
