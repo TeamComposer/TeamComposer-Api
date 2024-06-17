@@ -20,7 +20,7 @@ async function getAlunoById(req, res) {
   const alunoId = req.params.id;
 
   try {
-    const aluno = await Aluno.findById(alunoId);
+    const aluno = await Aluno.findById(alunoId).populate('userId');
 
     res.status(200).json(aluno ? aluno : { message: ALUNO_NAO_ENCONTRADO });
   } catch (error) {

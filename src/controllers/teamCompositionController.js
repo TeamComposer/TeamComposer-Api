@@ -1,9 +1,8 @@
-const { th } = require('@faker-js/faker');
 const Aluno = require('../models/Aluno');
 const Team = require('../models/Team');
 const _ = require('lodash');
 
-const numeroEquipes = 6;
+const numeroEquipes = 3;
 
 async function gerarTime(tamanho) {
     try {
@@ -238,9 +237,7 @@ async function gerarTimeReserva(){
         const reserveTeam = new Team({
             nome: 'Time Reserva',
             membros: remainingAlunos.map(aluno => ({
-                id: aluno._id,
-                funcao: aluno.funcao,
-                nivel: aluno.nivel
+                id: aluno._id
             }))
         });
 
@@ -266,11 +263,14 @@ module.exports = {
 
                 try {
                     const time = await executarAlgoritmo(tamanho);
+                    const membros = time.map(membro => ({ aluno: membro.id }));
 
                     const newTeam = new Team({
                         nome: `Time ${z + 1}`,
-                        membros: time
+                        membros: membros
                     });
+
+                    console.log("new team:  ", newTeam)
 
                     await newTeam.save();
                     const timeId = newTeam._id;

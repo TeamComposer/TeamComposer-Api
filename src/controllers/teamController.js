@@ -1,5 +1,7 @@
 // src/controllers/userController.js
 const Team = require("../models/Team");
+const Aluno = require("../models/Aluno");
+const User = require("../models/User");
 
 // Criação de variáveis para as mensagens a fim de padronizar e deixar mais "limpo" o código,
 // sem a necessidade de adicionar uma string talvez muito grande diretamente no código.
@@ -23,7 +25,16 @@ async function getTeamById(req, res) {
   const teamId = req.params.id;
 
   try {
-    const team = await Team.findById(teamId);
+    const team = await Team.findById(teamId)
+    .populate({
+      path: 'membros.aluno',
+      populate: {
+        path: 'userId',
+        model: 'User',
+        select: 'primeiroNome sobrenome email'
+      }
+    })
+    .exec();
 
     res.status(200).json(team ? team : { message: TIME_NAO_ENCONTRADO });
   } catch (error) {

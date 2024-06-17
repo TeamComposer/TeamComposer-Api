@@ -27,6 +27,7 @@ const teamSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+teamSchema.index({ 'membros.aluno': 1 });
 
 const Team = mongoose.model("Team", teamSchema);
 
