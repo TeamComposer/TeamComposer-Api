@@ -10,7 +10,7 @@ const TIME_EXCLUIDO_COM_SUCESSO = "Time excluído com sucesso!";
 // Obtém todos os times
 async function getAllTeams(req, res) {
   try {
-    const teams = await Team.find();
+    const teams = await Team.find().populate('projeto').exec();
 
     res.json(teams);
   } catch (error) {
