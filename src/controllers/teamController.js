@@ -12,7 +12,7 @@ async function getAllTeams(req, res) {
   try {
     const teams = await Team.find().populate('projeto').exec();
 
-    res.json(teams);
+    res.status(200).json(teams);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -69,7 +69,7 @@ async function deleteTeamById(req, res) {
 
     await Team.deleteOne({ _id: teamId });
 
-    res.json({ message: TIME_EXCLUIDO_COM_SUCESSO });
+    res.status(200).json({ message: TIME_EXCLUIDO_COM_SUCESSO });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
@@ -97,7 +97,7 @@ async function updateTeamById(req, res) {
 
     team = await team.save();
 
-    res.json(team);
+    res.status(200).json(team);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });

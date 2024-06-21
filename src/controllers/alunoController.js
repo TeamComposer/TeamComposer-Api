@@ -8,7 +8,7 @@ async function getAllAlunos(req, res) {
   try {
     const alunos = await Aluno.find();
 
-    res.json(alunos);
+    res.status(200).json(alunos);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -29,20 +29,6 @@ async function getAlunoById(req, res) {
   }
 }
 
-// Retorna um aluno por userId
-async function getAlunoByUserId(req, res) {
-  const userId = req.params.id;
-
-  try {
-    const aluno = await Aluno.findOne({ userId });
-    res.status(200).json(aluno ? aluno : { message: ALUNO_NAO_ENCONTRADO });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error.message });
-  }
-}
-
-
 // Deleta um determinado aluno a partir do id
 async function deleteAlunoById(req, res) {
   const alunoId = req.params.id;
@@ -57,7 +43,7 @@ async function deleteAlunoById(req, res) {
 
     await Aluno.deleteOne({ _id: aluno });
 
-    res.json({ message: ALUNO_EXCLUIDO_COM_SUCESSO });
+    res.status(200).json({ message: ALUNO_EXCLUIDO_COM_SUCESSO });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
@@ -102,6 +88,5 @@ module.exports = {
   getAlunoById,
   deleteAlunoById,
   updateAlunoById,
-  montaJsonAluno,
-  getAlunoByUserId
+  montaJsonAluno
 };

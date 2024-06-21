@@ -22,12 +22,10 @@ module.exports = {
         const { userId, funcao, nivel } = req.body;
         
         try {
-            // Check if userId already exists
             const existingAluno = await Aluno.findOne({ userId });
     
             if (existingAluno) {
-                // userId already exists, send conflict status
-                return res.status(409).send('User ID already exists');
+                return res.status(409).send('Usuário já é um Aluno');
             }
     
             // If userId does not exist, save the new Aluno

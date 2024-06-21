@@ -8,7 +8,7 @@ async function getAllProjects(req, res) {
   try {
     const alunos = await Aluno.find();
 
-    res.json(alunos);
+    res.send(200).json(alunos);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -59,7 +59,7 @@ async function deleteProjetoById(req, res) {
 
     await Projeto.deleteOne({ _id: projeto });
 
-    res.json({ message: PROJETO_DELETADO_COM_SUCESSO });
+    res.send(200).json({ message: PROJETO_DELETADO_COM_SUCESSO });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });

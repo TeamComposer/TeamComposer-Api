@@ -9,6 +9,8 @@ const cadastroRoutes = require("./src/routes/cadastroRoutes");
 const loginRoutes = require("./src/routes/loginRoutes");
 const autoGenerateRoutes = require("./src/routes/autoGenerateRoutes");
 const teamCompositionRoutes = require("./src/routes/teamCompositionRoutes");
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,6 +35,8 @@ app.use("/cadastro", cadastroRoutes);
 app.use("/login", loginRoutes);
 app.use("/autoGenerate", autoGenerateRoutes);
 app.use("/teamComposition", teamCompositionRoutes);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/", (req, res) => {
   res.send("API TeamComposer!");

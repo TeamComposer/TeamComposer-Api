@@ -1,0 +1,655 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API-Team-Composer",
+        "description": "API para a implementação do aplicativo Team Composer",
+        "version": "1.0.0",
+        "contact": {
+            "name": "Team Composer",
+            "email": "temcomposer.fs@gmail.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Servidor Local"
+        },
+        {
+            "url": "https://brilliant-jamie-teamcomposer-fs-2035bd65.koyeb.app/",
+            "description": "Servidor de Produção"
+        }
+    ],
+    "paths":{
+        "/cadastroUser":{
+            "post":{
+                "summary": "Cadastra um user com papel aluno",
+                "tags": ["User", "Cadastro"],
+                "description": "Cadastra um user com papel aluno no banco de dados",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "example":{
+                                "primeiroNome":"Guilherme",
+                                "sobrenome": "Casagramda",
+                                "email": "gmcasagranda@gmail.com",
+                                "periodo": 1,
+                                "senha": "1234"
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "Usuário cadastrado com sucesso"
+                    },
+                    "500":{
+                        "description": "Internal Server Error + erro específico"
+                    }
+                }
+            }
+        },
+        "/cadastroAluno": {
+            "post":{
+                "summary": "Cadastra um aluno",
+                "tags": ["Aluno", "Cadastro"],
+                "description": "Cadastra um luno no banco de dados",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "example":{
+                                "userId": "666e952b3425993b551d3dec",
+                                "funcao": "Backend",
+                                "nivel": 2
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "Aluno cadastrado com sucesso"
+                    },
+                    "409":{
+                        "description": "Usuário já é um aluno"
+                    },
+                    "500":{
+                        "description": "Internal Server Error + erro específico"
+                    }
+                }
+            }
+        },
+        "/cadastroProfessor": {
+            "post":{
+                "summary": "Cadastra um professor",
+                "tags": ["Professor", "Cadastro"],
+                "description": "Cadastra um professor no banco de dados",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "example":{
+                                "primeiroNome": "Rafael",
+                                "sobrenome": "Oliveira",
+                                "email": "rafael@professor.com",
+                                "senha": "1234"
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "Professor cadastrado com sucesso"
+                    },
+                    "500":{
+                        "description": "Internal Server Error + erro específico"
+                    }
+                }
+            }
+        },
+        "/login":{
+            "post":{
+                "summary": "Realiza o login",
+                "tags": ["Login"],
+                "description": "Realiza o login no sistema",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "example":{
+                                "email": "gmcasagranda@gmail.com",
+                                "senha": "1234"
+                            }
+                        }
+                    },
+                    "responses":{
+                        "200":{
+                            "description": "Se papel = aluno retorna dados de user e aluno. Se papel = professor retorna dados de user."
+                        },
+                        "400":{
+                            "description": "Usuário não encontrado"
+                        },
+                        "401":{
+                            "description": "Senha incorreta"
+                        },
+                        "500":{
+                            "description": "Internal Server Error + erro específico"
+                        }
+                    }
+                }
+            }
+        },
+        "/users":{
+            "get":{
+                "summary": "Retorna todos os usuários",
+                "tags": ["User"],
+                "description": "Retorna todos os usuários cadastrados no banco de dados",
+                "responses":{
+                    "200":{
+                        "description": "Retorna todos os usuários"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            }
+        },
+        "/users/{id}":{
+            "get":{
+                "summary": "Retorna um usuário",
+                "tags": ["User"],
+                "description": "Retorna um usuário cadastrado no banco de dados",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Retorna um usuário ou usuário não encontrado"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            },
+            "put":{
+                "summary": "Atualiza um usuário",
+                "tags": ["User"],
+                "description": "Atualiza um usuário cadastrado no banco de dados",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "example":{
+                                "primeiroNome": "Guilherme",
+                                "sobrenome": "Casagranda",
+                                "email": "gui@gmail.com",
+                                "periodo": 1,
+                                "papel": "aluno"
+                            }
+                        }
+                    },
+                    "responses":{
+                        "204":{
+                            "description": "Retorna dados do usuário"
+                        },
+                        "404":{
+                            "description": "Usuário não encontrado"
+                        },
+                        "500":{
+                            "description": "Mensagem de erro específica"
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "summary": "Deleta um usuário",
+                "tags": ["User"],
+                "description": "Deleta um usuário cadastrado no banco de dados",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "204":{
+                        "description": "Usuário deletado com sucesso"
+                    },
+                    "404":{
+                        "description": "Usuário não encontrado"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            }
+
+        },
+        "/teams":{
+            "get":{
+                "summary": "Retorna todos os times",
+                "tags": ["Team"],
+                "description": "Retorna todos os times cadastrados no banco de dados",
+                "responses":{
+                    "200":{
+                        "description": "Retorna todos os times"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            },
+            "post":{
+                "summary": "Cadastra um time",
+                "tags": ["Team"],
+                "description": "Cadastra um time no banco de dados",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "example":{
+                                "nome": "Time 1",
+                                "alunos": ["666e952b3425993b551d3dec", "666e952b3425993b551d3dec"]
+                            }
+                        }
+                    },
+                    "responses":{
+                        "201":{
+                            "description": "Retorna dados do time cadastrado."
+                        },
+                        "500":{
+                            "description": "Internal Server Error + erro específico"
+                        }
+                    }
+                }
+            }
+        },
+        "/teams/{id}":{
+            "get":{
+                "summary": "Retorna um time",
+                "tags": ["Team"],
+                "description": "Retorna um time cadastrado no banco de dados",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do time",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Retorna um time e seu projeto ou time não encontrado"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            },
+            "put":{
+                "summary": "Atualiza um time",
+                "tags": ["Team"],
+                "description": "Atualiza um time cadastrado no banco de dados",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do time",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "example":{
+                                "nome": "Time 1",
+                                "alunos": ["666e952b3425993b551d3dec", "666e952b3425993b551d3dec"],
+                                "projeto": "666e952b3425993b551d3dec"
+                            }
+                        }
+                    },
+                    "responses":{
+                        "200":{
+                            "description": "Retorna dados do time atualizados"
+                        },
+                        "404":{
+                            "description": "Time não encontrado"
+                        },
+                        "500":{
+                            "description": "Mensagem de erro específica"
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "summary": "Deleta um time",
+                "tags": ["Team"],
+                "description": "Deleta um time cadastrado no banco de dados",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do time",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Time excluído com sucesso"
+                    },
+                    "404":{
+                        "description": "Time não encontrado"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            }
+        },
+        "/alunos":{
+            "get":{
+                "summary": "Retorna todos os alunos",
+                "tags": ["Aluno"],
+                "description": "Retorna todos os alunos cadastrados no banco de dados",
+                "responses":{
+                    "200":{
+                        "description": "Retorna todos os alunos"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            }
+        },
+        "/alunos/{id}":{
+            "get":{
+                "summary": "Retorna um aluno",
+                "tags": ["Aluno"],
+                "description": "Retorna um aluno cadastrado no banco de dados",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do aluno",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Retorna um aluno ou aluno não encontrado"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            },
+            "put":{
+                "summary": "Atualiza um aluno",
+                "tags": ["Aluno"],
+                "description": "Atualiza um aluno cadastrado no banco de dados",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do aluno",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "example":{
+                                "funcao": "Backend",
+                                "nivel": 2
+                            }
+                        }
+                    },
+                    "responses":{
+                        "204":{
+                            "description": "Retorna dados do aluno atualizados"
+                        },
+                        "404":{
+                            "description": "Aluno não encontrado"
+                        },
+                        "500":{
+                            "description": "Mensagem de erro específica"
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "summary": "Deleta um aluno",
+                "tags": ["Aluno"],
+                "description": "Deleta um aluno cadastrado no banco de dados",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do aluno",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Aluno excluído com sucesso"
+                    },
+                    "404":{
+                        "description": "Aluno não encontrado"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            }
+        },
+        "/projetos":{
+            "get":{
+                "summary": "Retorna todos os projetos",
+                "tags": ["Projeto"],
+                "description": "Retorna todos os projetos cadastrados no banco de dados",
+                "responses":{
+                    "200":{
+                        "description": "Retorna todos os projetos"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            },
+            "post":{
+                "summary": "Cadastra um projeto",
+                "tags": ["Projeto"],
+                "description": "Cadastra um projeto no banco de dados",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "example":{
+                                "nome": "Projeto 1",
+                                "descricao": "Descrição do projeto 1"
+                            }
+                        }
+                    },
+                    "responses":{
+                        "201":{
+                            "description": "Retorna dados do projeto cadastrado."
+                        },
+                        "500":{
+                            "description": "Internal Server Error + erro específico"
+                        }
+                    }
+                }
+            }
+        },
+        "/projetos/{id}":{
+            "get":{
+                "summary": "Retorna um projeto",
+                "tags": ["Projeto"],
+                "description": "Retorna um projeto cadastrado no banco de dados",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Retorna um projeto ou projeto não encontrado"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            },
+            "put":{
+                "summary": "Atualiza um projeto",
+                "tags": ["Projeto"],
+                "description": "Atualiza um projeto cadastrado no banco de dados",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "example":{
+                                "nome": "Projeto 1",
+                                "descricao": "Descrição do projeto 1"
+                            }
+                        }
+                    },
+                    "responses":{
+                        "204":{
+                            "description": "Retorna dados do projeto atualizados"
+                        },
+                        "404":{
+                            "description": "Projeto não encontrado"
+                        },
+                        "500":{
+                            "description": "Mensagem de erro específica"
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "summary": "Deleta um projeto",
+                "tags": ["Projeto"],
+                "description": "Deleta um projeto cadastrado no banco de dados",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Projeto deletado com sucesso"
+                    },
+                    "404":{
+                        "description": "Projeto não encontrado"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            }
+        },
+        "/autoGenerate/autoGenerate":{
+            "get":{
+                "summary": "Gera 100 usuários e alunos automaticamente",
+                "tags": ["AutoGenerate"],
+                "description": "Gera times automaticamente",
+                "responses":{
+                    "200":{
+                        "description": "Retorna usuários e alunos gerados"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            }
+        },
+        "/teamComposition":{
+            "get":{
+                "summary": "Gera times automaticamente",
+                "tags": ["TeamComposition"],
+                "description": "Gera times automaticamente",
+                "responses":{
+                    "200":{
+                        "description": "Retorna times gerados com sucesso ou times gerados com erro + motivo erro"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            }
+        },
+        "/teamComposition/randomProject":{
+            "get":{
+                "summary": "Designa projetos aleatórios para os times sem projeto",
+                "tags": ["TeamComposition"],
+                "description": "Designa projetos aleatórios para os times sem projeto",
+                "responses":{
+                    "200":{
+                        "description": "Projetos atribuídos com sucesso!"
+                    },
+                    "500":{
+                        "description": "Mensagem de erro específica"
+                    }
+                }
+            }
+        }
+    }
+}
